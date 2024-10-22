@@ -2,17 +2,25 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useLogin } from "@/hooks/auth/useLogin";
 
 export default function LoginPage() {
-    const [login, setLogin] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
+    const { login } = useLogin();
 
     const onSubmit = () => {
-        if (login && password){
-            router.push("/home")
+        if (!username || !password){
+            alert("Please entr username")
         }else{
-            alert("Please fill all fields")
+            login(username, password)
+                .then(()=>router.push("/profile"))
+                .catch((e: Error) => {
+                    setUsername("");
+                    setPassword("");
+                    alert("Invalid Credentials")
+                })
         }
     }
 
@@ -21,7 +29,7 @@ export default function LoginPage() {
             <h1>Login Page</h1>
             <label className="mt-4">Login</label>
             <input type="text" className="w-80 h-8 px-2 border border-solid border-block rounded 
-            text-black" value={login} onChange={(e) => setLogin(e.target.value)}/>
+            text-black" value={username} onChange={(e) => setUsername(e.target.value)}/>
             <label className="mt-4">Password</label>
             <input type="password" className="w-80 h-8 px-2 border border-solid border-block rounded 
             text-black" value={password} onChange={(e) => setPassword(e.target.value)}/>
