@@ -1,14 +1,14 @@
 import { CartCounter } from "@/components/cart/CartCounter"
 
 export const metadata = {
-    title: "Counter Page",
-    description: "Counter page"
+    title:"Counter Page", 
+    description: "Counter Page"
 }
 
-export default function CounterPage (){
+export default function  CounterPage (){
     return (
-        <div className="flex flex-col items-center justify-center w-full h-80 bg-slate-400">
-            <CartCounter value={100}/>
+        <div className="flex flex-col items-center justify-center w-full h-full bg-slate-400">
+            <CartCounter value={10}/>
         </div>
     )
 }
